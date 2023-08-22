@@ -7,32 +7,6 @@ import torch
 from .evaluation_metrics import cmc, mean_ap
 from .feature_extraction import extract_cnn_feature
 from .utils.meters import AverageMeter
-import matplotlib.pyplot as plt
-from sklearn.manifold import TSNE
-
-
-def Tsne(features, labels):
-    
-    features_array = []
-    labels_array = []
-
-    for key in features:
-        features_array.append(features[key])
-        labels_array.append(labels[key])
-        
-    features_array = np.array(features_array)
-    labels_array = np.array(labels_array)
-    
-    
-    tsne = TSNE(n_components=2, perplexity=30, random_state=0)
-    features_tsne = tsne.fit_transform(features_array)
-    
-    
-    plt.scatter(features_tsne[:,0], features_tsne[:,1], c=labels_array, cmap='viridis')
-    plt.colorbar()
-    
-    # Save the plot as a PNG file
-    plt.savefig('/home/roya/result_reid/tsne_plot.png', dpi=300)
 
 
 def extract_features(model, data_loader, print_freq=1, metric=None):
@@ -62,7 +36,8 @@ def extract_features(model, data_loader, print_freq=1, metric=None):
                   .format(i + 1, len(data_loader),
                           batch_time.val, batch_time.avg,
                           data_time.val, data_time.avg))
-
+    #print(features[0])
+    #exit(0)
     return features, labels
 
 
@@ -144,4 +119,3 @@ class Evaluator(object):
         features, _ = extract_features(self.model, data_loader)
         distmat = pairwise_distance(features, query, gallery, metric=metric)
         return evaluate_all(distmat, query=query, gallery=gallery)
- 
