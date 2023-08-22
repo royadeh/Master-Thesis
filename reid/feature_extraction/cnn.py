@@ -1,5 +1,7 @@
 from __future__ import absolute_import
 from collections import OrderedDict
+from pickle import TRUE
+import sys
 
 import torch
 from ..utils import to_torch
@@ -18,8 +20,9 @@ def extract_cnn_feature(model, inputs, norm=True):
 
     n, c, h, w = inputs.size()
 
-    ff = torch.FloatTensor(n, 2048).zero_().cuda()
-
+    ff = torch.FloatTensor(n, 768).zero_().cuda()
+    #ff = torch.FloatTensor(n, 1024).zero_().cuda()
+    #ff = torch.FloatTensor(n, 2048).zero_().cuda()
     for i in range(2):
         if (i == 1):
             inputs = fliplr(inputs)
@@ -34,7 +37,7 @@ def extract_cnn_feature(model, inputs, norm=True):
     if norm:
         fnorm = torch.norm(ff, p=2, dim=1, keepdim=True)
         ff = ff.div(fnorm.expand_as(ff))
-
+   
     return ff
 
 
@@ -50,8 +53,8 @@ def extract_cnn_feature_specific(model, inputs, camid, norm=True):
 
     n, c, h, w = inputs.size()
 
-    ff = torch.FloatTensor(n, 2048).zero_().cuda()
-
+    # ff = torch.FloatTensor(n, 2048).zero_().cuda()
+    ff = torch.FloatTensor(n, 1024).zero_().cuda()
     for i in range(2):
         if (i == 1):
             inputs = fliplr(inputs)
@@ -69,12 +72,65 @@ def extract_cnn_feature_specific(model, inputs, camid, norm=True):
 
     return ff
 
+#change
+def extract_cnn_feature_without_tnorm(model,
+                                   inputs,
+                                   camid,
+                                   convert_domain_index,
+                                   norm=True):
+
+
+    def fliplr(img):
+        '''flip horizontal'''
+        inv_idx = torch.arange(img.size(3) - 1, -1, -1).long()  # N x C x H x W
+        img_flip = img.index_select(3, inv_idx)
+        return img_flip
+
+    model.eval()
+    inputs = to_torch(inputs)
+
+    n, c, h, w = inputs.size()
+    
+    
+    #ff = torch.FloatTensor(n, 2048).zero_().cuda()
+    ff = torch.FloatTensor(n, 768).zero_().cuda()
+    #ff = torch.FloatTensor(n, 1024).zero_().cuda()
+    domain_index = (camid.view(n), convert_domain_index)
+    for i in range(2):
+        if (i == 1):
+            inputs = fliplr(inputs)
+        inputs2 = inputs.cuda()
+        if hasattr(model, "module"):
+            #here, we call forward function of the model
+            #cahnge by roya
+            outputs = model.module.backbone_forward(inputs2
+                                                    # ,
+                                                    # domain_index,
+                                                    # convert=True
+                                                    )
+        else:
+            outputs = model.backbone_forward(inputs2
+                                            #  ,
+                                            #  domain_index,
+                                            #  convert=True
+                                             )
+        outputs = outputs.view(outputs.size(0), outputs.size(1))
+
+        ff += outputs * 0.5
+    if norm:
+        fnorm = torch.norm(ff, p=2, dim=1, keepdim=True)
+        ff = ff.div(fnorm.expand_as(ff))
+
+    return ff
+
 
 def extract_cnn_feature_with_tnorm(model,
                                    inputs,
                                    camid,
                                    convert_domain_index,
                                    norm=True):
+
+
     def fliplr(img):
         '''flip horizontal'''
         inv_idx = torch.arange(img.size(3) - 1, -1, -1).long()  # N x C x H x W
@@ -86,20 +142,27 @@ def extract_cnn_feature_with_tnorm(model,
 
     n, c, h, w = inputs.size()
 
-    ff = torch.FloatTensor(n, 2048).zero_().cuda()
+    #ff = torch.FloatTensor(n, 2048).zero_().cuda()
+    ff = torch.FloatTensor(n, 768).zero_().cuda()
     domain_index = (camid.view(n), convert_domain_index)
     for i in range(2):
         if (i == 1):
             inputs = fliplr(inputs)
         inputs2 = inputs.cuda()
         if hasattr(model, "module"):
-            outputs = model.module.backbone_forward(inputs2,
+            #here, we call forward function of the model
+            #cahnge by roya
+            outputs = model.module.backbone_forward(inputs2
+                                                    ,
                                                     domain_index,
-                                                    convert=True)
+                                                    convert=True
+                                                    )
         else:
-            outputs = model.backbone_forward(inputs2,
+            outputs = model.backbone_forward(inputs2
+                                             ,
                                              domain_index,
-                                             convert=True)
+                                             convert=True
+                                             )
         outputs = outputs.view(outputs.size(0), outputs.size(1))
 
         ff += outputs * 0.5
