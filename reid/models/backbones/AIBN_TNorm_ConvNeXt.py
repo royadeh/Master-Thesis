@@ -185,9 +185,6 @@ class ConvNeXt(nn.Module):
         # the cur variable is updated to keep track of the current position in the dp_rates list.
         cur += depths[3]
             
-
-
-       
         #final layers
         self.norm = nn.LayerNorm(dims[-1], eps=1e-6) # final norm layer
         # self.head = nn.Linear(dims[-1], num_classes)
@@ -201,12 +198,12 @@ class ConvNeXt(nn.Module):
             trunc_normal_(m.weight, std=.02)
             nn.init.constant_(m.bias, 0)
 
-    def forward_features(self, x, domain_index=None, convert=False):
-        # for i in range(4):
-        #     x = self.downsample_layers[i](x)
-        #     x = self.stages[i](x)
+    # def forward_features(self, x, domain_index=None, convert=False):
+    #     # for i in range(4):
+    #     #     x = self.downsample_layers[i](x)
+    #     #     x = self.stages[i](x)
             
-          def forward(self, x, domain_index=None, convert=False):
+    def forward_features(self, x, domain_index=None, convert=False):
         if convert:
             selected_domain = np.random.randint(0,
                                                 self.domain_number,
@@ -224,20 +221,14 @@ class ConvNeXt(nn.Module):
         x= self.tnorm3(x, domain_index, convert, selected_domain) 
         x= self.downsample_layer3(x)
         x= self.stage4(x)
-        
-           
         return self.norm(x.mean([-2, -1])) # global average pooling, (N, C, H, W) -> (N, C)
 
-    def forward(self, x):
-        x = self.forward_features(x)
+    def forward(self, x, domain_index=None, convert=False):
+        x = self.forward_features(x, , domain_index=domain_index, convert=convert)
         x = x.unsqueeze(-1).unsqueeze(-1)
         #x = self.head(x)
         return x
     
-    
-   
-
-
     def load_param(self, model_path):
             param_dict = torch.load(model_path)
             for k, v in param_dict.items():
