@@ -8,7 +8,7 @@ ConvNeXt is organized into 4 stages, with the number of blocks in each stage set
 
 ## ResNeXtify and Inverted Bottleneck
 
-ConvNeXt employs depth-wise and point-wise $(1 \times 1)$ convolutions to separate spatial and channel mixing, similar to the concept of depthwise convolution and weighted sum operation in self-attention of transformers. The inverted bottleneck architecture, where the MLP (Multi-Layer Perceptron) block's hidden dimension is four times larger than its input dimension, is also integrated into ConvNeXt.
+ConvNeXt employs depth-wise and point-wise $(1 \times 1)$ convolutions to separate spatial and channel mixing, similar to the concept of depthwise convolution and weighted sum operation in the self-attention of transformers. The inverted bottleneck architecture, where the MLP (Multi-Layer Perceptron) block's hidden dimension is four times larger than its input dimension, is also integrated into ConvNeXt.
 
 ## Depth-wise Convolution and Global Receptive Field
 
@@ -16,6 +16,6 @@ ConvNeXt features a depth-wise kernel size of $(7 \times 7)$ to achieve a global
 
 ## Activation and Normalization
 
-The ConvNeXt block includes a single Gelu activation function \parencite{hendrycks2016gaussian}, which is a smoother variant of ReLU. Similar to transformer blocks, each ConvNeXt block is equipped with a single normalization layer—Layer Normalization (LN) \parencite{ba2016layer}.
+The ConvNeXt block includes a single Gelu activation function, which is a smoother variant of ReLU. Similar to transformer blocks, each ConvNeXt block is equipped with a single normalization layer—Layer Normalization (LN).
 
 
