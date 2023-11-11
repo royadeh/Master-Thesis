@@ -1,5 +1,5 @@
 # Unsupervised Person ReID
-Inspired by other worKs in unsupervised pseudo Llabels-based methods, we designed a two-satge system for person ReID task across different cameras. The task of matching and recognising persons across multiple camera views or datasets without the use of labelled training data is referred to as unsupervised person re-identification (ReID). We Investigate the use of ConvNeXt into IICS/IIDS framework for person Re-ID.
+Inspired by other works in unsupervised pseudo Llabels-based methods, we designed a two-satge system for person ReID task across different cameras. The task of matching and recognising persons across multiple camera views or datasets without the use of labelled training data is referred to as unsupervised person re-identification (ReID). We Investigate the use of ConvNeXt into IICS/IIDS framework for person Re-ID.
 
 ## Table of Contents
 
