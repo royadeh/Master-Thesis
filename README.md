@@ -2,6 +2,8 @@
 
 Inspired by other works in unsupervised pseudo labels, we designed a two-stage system for person ReID tasks across different cameras. The task of matching and recognizing persons across multiple camera views or datasets without labeled training data is called unsupervised person re-identification (ReID). Unsupervised person ReID, in contrast to supervised person ReID, which uses annotated data with identification labels for training, tries to develop effective representations exclusively from unannotated data.
 
+<!-- Image added below -->
+<img src="Result.png" alt="ConvNeXt Architecture" width="1000px">
 ## Table of Contents
 - [Introduction](#introduction)
 - [Installation](#installation)
@@ -62,5 +64,4 @@ ConvNeXt features a depth-wise kernel size of $(7 \times 7)$ to achieve a global
 
 The ConvNeXt block includes a single Gelu activation function, which is a smoother variant of ReLU. Similar to transformer blocks, each ConvNeXt block is equipped with a single normalization layer—Layer Normalization (LN).
 
-<!-- Image added below -->
-<img src="Result.png" alt="ConvNeXt Architecture" width="500px">
+
