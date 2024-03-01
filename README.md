@@ -63,4 +63,4 @@ ConvNeXt features a depth-wise kernel size of $(7 \times 7)$ to achieve a global
 The ConvNeXt block includes a single Gelu activation function, which is a smoother variant of ReLU. Similar to transformer blocks, each ConvNeXt block is equipped with a single normalization layer—Layer Normalization (LN).
 
 <!-- Image added below -->
-<img src="path/to/convnext_image.jpg" alt="ConvNeXt Architecture" width="500px">
+<img src="Result.png" alt="ConvNeXt Architecture" width="500px">
