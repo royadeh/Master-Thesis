@@ -4,12 +4,7 @@ Inspired by other works in unsupervised pseudo labels, we designed a two-stage s
 
 <!-- Image added below -->
 <img src="Result.png" alt="ConvNeXt Architecture" width="1000px">
-# Table of Contents
-- [Introduction](#introduction)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Contact](#contact)
-- [Acknowledgement](#acknowledgement)
+
 
 ## Introduction
 Unsupervised person ReID addresses the challenge of matching individuals across camera viewpoints by learning robust and invariant feature representations.
