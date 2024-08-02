@@ -4,7 +4,7 @@ Inspired by other works in unsupervised pseudo labels, we designed a two-stage s
 
 <!-- Image added below -->
 <img src="Result.png" alt="ConvNeXt Architecture" width="1000px">
-## Table of Contents
+# Table of Contents
 - [Introduction](#introduction)
 - [Installation](#installation)
 - [Usage](#usage)
