@@ -1,6 +1,6 @@
 # Unsupervised Person ReID
 
-Inspired by advancements in unsupervised pseudo-labeling, we designed a two-stage system for person re-identification (ReID) across different cameras. This task involves matching and recognizing individuals across multiple camera views or datasets without using labeled training data. Unlike supervised person ReID, which relies on annotated data with identification labels for training, unsupervised person ReID focuses on developing effective representations solely from unannotated data.
+Inspired by advancements in unsupervised pseudo-labeling, we designed a two-stage system for person re-identification (ReID) across different cameras. This task involves matching and recognizing individuals across multiple camera views without using labeled training data. Unlike supervised person ReID, which relies on annotated data with identification labels for training, unsupervised person ReID focuses on developing effective representations solely from unannotated data.
 
 <!-- Image added below -->
 <img src="Result.png" alt="ConvNeXt Architecture" width="1000px">
